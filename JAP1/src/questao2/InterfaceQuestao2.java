@@ -1,4 +1,5 @@
 package questao2;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -23,6 +24,15 @@ public class InterfaceQuestao2 extends javax.swing.JFrame {
     public boolean testaInt(String num){
         try{
         Integer.parseInt(num);
+        return true;
+        }
+        catch(Exception e){
+          return false;
+        }
+    }
+    public boolean testaDouble(String num){
+        try{
+        Double.parseDouble(num);
         return true;
         }
         catch(Exception e){
@@ -83,7 +93,7 @@ public class InterfaceQuestao2 extends javax.swing.JFrame {
         jLabel3.setText("Menor >>>");
 
         jLabel4.setFont(new java.awt.Font("OCR A Extended", 0, 12)); // NOI18N
-        jLabel4.setText("Média>>>");
+        jLabel4.setText("Média >>>");
 
         ExibirButton.setFont(new java.awt.Font("OCR A Extended", 1, 14)); // NOI18N
         ExibirButton.setText("Exibir");
@@ -258,41 +268,39 @@ public class InterfaceQuestao2 extends javax.swing.JFrame {
     }                                        
 
     private void CalcularButtonActionPerformed(java.awt.event.ActionEvent evt) {                                               
-        String valores = Valores.getText();            
-        System.out.println("starts");
-
-        if(testaInt(Valores.getText())){
-            System.out.println("Hora de trabalhar");
+        String valores = Valores.getText(); 
+        if(testaDouble(Valores.getText())){
             int total = 0;
             String opcao = Operacao.getSelectedItem().toString();
-            System.out.println(opcao);
                
-            if(opcao.equals("Soma")){
-                for(int i = 0; i < valores.length(); i += 2){
-                       total += Integer.valueOf(valores.substring(i, i+2));
-                }
-                Resultado.setText(Integer.toString(total));
+            switch (opcao) {
+                case "Soma":
+                    for(int i = 0; i < valores.length(); i += 2){
+                        System.out.println(Integer.valueOf(valores.substring(i, i+2)));
+                        total += Integer.valueOf(valores.substring(i, i+2));
+                    }   Resultado.setText(Integer.toString(total));
+                    break;
+                case "Subtração":
+                    for(int i = 0; i < valores.length(); i += 2){
+                        total -= Integer.valueOf(valores.substring(i, i+2));
+                    }   Resultado.setText(Integer.toString(total));
+                    break;
+                case "Multiplicação":
+                    total += Integer.valueOf(valores.substring(0, 2));
+                    for(int i = 2; i < valores.length(); i += 2){
+                        total *= Integer.valueOf(valores.substring(i, i+2));
+                    }   Resultado.setText(Integer.toString(total));
+                    break;
+                default:
+                    total += Integer.valueOf(valores.substring(0, 2));
+                    for(int i = 2; i < valores.length(); i += 2){
+                        total /= Integer.valueOf(valores.substring(i, i+2));
+                    }   Resultado.setText(Integer.toString(total));
+                    break;
             }
-            else if(opcao.equals("Subtração")){
-                for(int i = 0; i < valores.length(); i += 2){
-                       total -= Integer.valueOf(valores.substring(i, i+2));
-                }
-                Resultado.setText(Integer.toString(total));
-            }
-            else if(opcao.equals("Multiplicação")){
-                total += Integer.valueOf(valores.substring(0, 2));
-                for(int i = 2; i < valores.length(); i += 2){
-                       total *= Integer.valueOf(valores.substring(i, i+2));
-                }
-                Resultado.setText(Integer.toString(total));
-            }
-             else{
-                total += Integer.valueOf(valores.substring(0, 2));
-                for(int i = 2; i < valores.length(); i += 2){
-                       total /= Integer.valueOf(valores.substring(i, i+2));
-                }
-                Resultado.setText(Integer.toString(total));
-            }
+            
+                   
+            
         }
     }                                              
 
